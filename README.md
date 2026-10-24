@@ -76,7 +76,7 @@ cd meu-site-portifolio
    ```env
    PORT=3001
    DATABASE_URL="file:./dev.db"
-   JWT_SECRET="sua-chave-secreta-forte-aqui"
+   JWT_SECRET="gere-sua-chave-com-openssl-rand-base64-32" # Gere no terminal: openssl rand -base64 32
    CORS_ORIGIN="http://localhost:3000"
 
    # Credenciais do Administrador

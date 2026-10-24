@@ -88,24 +88,44 @@ cd /opt/meu-site-portifolio
 cd /opt/meu-site-portifolio/backend
 ```
 
-2. Crie o arquivo `.env` de produção seguro (sem expor credenciais no GitHub):
+2. Crie o arquivo `.env` de produção gerando uma chave JWT única e segura:
+
+Gere uma chave criptográfica forte diretamente no terminal da VPS:
+```bash
+openssl rand -base64 32
+```
+
+Copie a chave gerada e crie o seu arquivo `.env`:
 ```bash
 cat > .env << 'EOF'
 PORT=3005
 NODE_ENV=production
 DATABASE_URL="file:./dev.db"
 
-# Gere uma chave forte para o JWT
-JWT_SECRET="c98f7e2a1b4d3e5f60718293a4b5c6d7e8f90123456789abcdef0123456789ab"
+# Cole aqui a chave gerada pelo comando 'openssl rand -base64 32':
+JWT_SECRET="COLE_AQUI_A_CHAVE_GERADA_PELO_OPENSSL"
 
-# Suas credenciais de acesso ao painel /admin
-ADMIN_EMAIL=de.faraujo@hotmail.com
+# Suas credenciais de acesso ao painel /admin (escolha seu e-mail e senha):
+ADMIN_EMAIL=seu-email@dominio.com
 ADMIN_PASSWORD=SuaSenhaForteAqui@2026
 
-# Domínio do Frontend permitido no CORS
+# Domínio do Frontend permitido no CORS (ajuste se usar domínio próprio):
 CORS_ORIGIN=https://portifolio.vps6663.panel.icontainer.run
 EOF
 ```
+
+> 💡 **Dica de automação rápida:** Se preferir gerar e salvar tudo diretamente em um único comando no terminal da VPS:
+> ```bash
+> cat > .env << EOF
+> PORT=3005
+> NODE_ENV=production
+> DATABASE_URL="file:./dev.db"
+> JWT_SECRET="$(openssl rand -base64 32)"
+> ADMIN_EMAIL="seu-email@dominio.com"
+> ADMIN_PASSWORD="SuaSenhaForteAqui@2026"
+> CORS_ORIGIN=https://portifolio.vps6663.panel.icontainer.run
+> EOF
+> ```
 
 3. Instale as dependências:
 ```bash

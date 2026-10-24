@@ -10,7 +10,7 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: () => ({
-        secret: process.env.JWT_SECRET || 'denilson-portfolio-jwt-super-secret-key-2026!#',
+        secret: process.env.JWT_SECRET || 'dev-insecure-jwt-secret-key-change-in-env',
         signOptions: { expiresIn: '7d' },
       }),
     }),
