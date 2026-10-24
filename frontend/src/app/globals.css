@@ -141,6 +141,92 @@ textarea {
   font-size: 13px;
 }
 
+/* OPÇÃO 2: BADGE / CÁPSULA MINIMALISTA */
+.topBadgeCapsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              background-color 0.22s ease,
+              box-shadow 0.22s ease;
+}
+
+.topBadgeCapsule:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(22, 199, 183, 0.16);
+  background: var(--panel);
+}
+
+.topBadgeCapsule .badgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  flex-shrink: 0;
+  display: inline-block;
+  animation: pulseDot 2.4s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.topBadgeCapsule .badgeName {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--text);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.topBadgeCapsule .badgeSeparator {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.topBadgeCapsule .badgeRole {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* Modo Escuro para o Badge */
+.top.dark .topBadgeCapsule {
+  background: rgba(35, 35, 38, 0.7);
+  border-color: #38383c;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.top.dark .topBadgeCapsule:hover {
+  background: rgba(45, 45, 50, 0.95);
+  border-color: var(--accent);
+}
+
+.top.dark .topBadgeCapsule .badgeName {
+  color: #f7f7f5;
+}
+
+.top.dark .topBadgeCapsule .badgeRole {
+  color: #aaa;
+}
+
 .toplogo {
   width: 44px;
   height: 44px;
@@ -624,12 +710,20 @@ textarea {
   background: #fff;
   color: #171718;
   box-shadow: 0 12px 28px #0008;
-  font-size: 36px;
-  line-height: 1;
-  display: grid;
-  place-items: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arrow svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .arrow:hover {
@@ -1211,6 +1305,22 @@ html[data-theme='dark'] .toast-copy span {
     display: none;
   }
 
+  .topBadgeCapsule {
+    padding: 5px 12px;
+    gap: 6px;
+    max-width: 68vw;
+  }
+
+  .topBadgeCapsule .badgeName {
+    font-size: 12px;
+  }
+
+  .topBadgeCapsule .badgeRole {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .toplogo {
     width: 42px;
     height: 42px;
@@ -1273,7 +1383,11 @@ html[data-theme='dark'] .toast-copy span {
   .arrow {
     width: 39px;
     height: 39px;
-    font-size: 29px;
+  }
+
+  .arrow svg {
+    width: 17px;
+    height: 17px;
   }
 
   .arrow.prev {

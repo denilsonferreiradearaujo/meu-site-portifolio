@@ -111,6 +111,8 @@ export default function PortfolioPage() {
             theme={theme}
             onToggleTheme={handleToggleTheme}
             isDarkSection={isDarkSection}
+            name={profile.name || 'Denilson Ferreira'}
+            role={profile.role || 'Desenvolvedor de Software e Soluções'}
             social={{
               linkedin: profile.linkedin,
               github: profile.github,

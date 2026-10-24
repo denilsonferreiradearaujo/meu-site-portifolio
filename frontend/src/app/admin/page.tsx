@@ -397,6 +397,14 @@ export default function AdminPage() {
                         />
                       </div>
                       <div className="field">
+                        <label>Cargo / Subtítulo do Topo</label>
+                        <input
+                          value={profile.role || ''}
+                          placeholder="Ex: Desenvolvedor de Software e Soluções"
+                          onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                        />
+                      </div>
+                      <div className="field">
                         <label>Etiqueta</label>
                         <input
                           value={profile.status}

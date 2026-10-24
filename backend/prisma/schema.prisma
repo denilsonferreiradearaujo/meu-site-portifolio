@@ -19,6 +19,7 @@ model User {
 model Profile {
   id         String   @id @default("default-profile")
   name       String   @default("Denilson Ferreira de Araujo")
+  role       String   @default("Desenvolvedor de Software e Soluções")
   status     String   @default("Disponível para novos projetos")
   title      String   @default("Transformando visão em realidade com código e experiência.")
   intro      String   @default("Desenvolvedor de soluções digitais com experiência em operações, logística, indicadores e aplicações corporativas. Projetos feitos para resolver problemas reais do negócio.")

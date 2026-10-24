@@ -1,6 +1,7 @@
 export interface ProfileData {
   id: string;
   name: string;
+  role?: string;
   status: string;
   title: string;
   intro: string;

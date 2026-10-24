@@ -51,6 +51,7 @@ async function main() {
     create: {
       id: 'default-profile',
       name: 'Denilson Ferreira de Araujo',
+      role: 'Desenvolvedor de Software e Soluções',
       status: 'Disponível para novos projetos',
       title: 'Transformando visão em realidade com código e experiência.',
       intro:

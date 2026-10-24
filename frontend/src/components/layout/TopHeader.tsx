@@ -8,6 +8,8 @@ interface TopHeaderProps {
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
   isDarkSection?: boolean;
+  name?: string;
+  role?: string;
   social: {
     linkedin?: string;
     github?: string;
@@ -22,6 +24,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   theme,
   onToggleTheme,
   isDarkSection = false,
+  name,
+  role,
   social,
 }) => {
   const networks: Array<{ label: string; url: string; key: string }> = [];
@@ -75,7 +79,12 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <a href="#contato">Contato</a>
       </nav>
 
-      <div className="toplogo">DA</div>
+      <a href="#home" className="topBadgeCapsule" title="Voltar ao início">
+        <span className="badgeDot"></span>
+        <span className="badgeName">{name || 'Denilson Ferreira'}</span>
+        <span className="badgeSeparator">•</span>
+        <span className="badgeRole">{role || 'Desenvolvedor de Software e Soluções'}</span>
+      </a>
 
       <div className="social">
         {networks.map((net, i) => (

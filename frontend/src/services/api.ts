@@ -6,6 +6,7 @@ const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:30
 export const defaultProfile: ProfileData = {
   id: 'default-profile',
   name: 'Denilson Ferreira de Araujo',
+  role: 'Desenvolvedor de Software e Soluções',
   status: 'Disponível para novos projetos',
   title: 'Transformando visão em realidade com código e experiência.',
   intro:
