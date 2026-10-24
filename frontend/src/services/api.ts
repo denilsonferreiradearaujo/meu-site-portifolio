@@ -88,6 +88,30 @@ export function setStoredToken(token: string | null) {
   }
 }
 
+function translateErrorMessage(msg: string): string {
+  if (!msg) return 'Ocorreu um erro inesperado.';
+  
+  if (msg.includes('should not exist')) {
+    return 'Propriedades de controle não permitidas foram ignoradas.';
+  }
+  if (msg.includes('Unauthorized') || msg.includes('jwt') || msg.includes('token') || msg.includes('401')) {
+    return 'Sessão expirada ou não autorizada. Por favor, faça login novamente.';
+  }
+  if (msg.includes('Invalid credentials') || msg.includes('Credenciais')) {
+    return 'E-mail ou senha incorretos.';
+  }
+  if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+    return 'Não foi possível conectar ao servidor. Verifique se o backend está ativo.';
+  }
+  if (msg.includes('must be a string')) {
+    return 'Formato de texto inválido.';
+  }
+  if (msg.includes('Internal server error')) {
+    return 'Erro interno do servidor. Tente novamente mais tarde.';
+  }
+  return msg;
+}
+
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = getStoredToken();
   const headers: Record<string, string> = {
@@ -105,16 +129,16 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   });
 
   if (!response.ok) {
-    let errorMsg = `Erro na requisição: ${response.statusText}`;
+    let errorMsg = `Erro na requisição (${response.status}): ${response.statusText}`;
     try {
       const errorData = await response.json();
       if (Array.isArray(errorData.message)) {
-        errorMsg = errorData.message.join(', ');
+        errorMsg = errorData.message.map(translateErrorMessage).join(', ');
       } else if (errorData.message) {
-        errorMsg = errorData.message;
+        errorMsg = translateErrorMessage(errorData.message);
       }
     } catch {}
-    throw new Error(errorMsg);
+    throw new Error(translateErrorMessage(errorMsg));
   }
 
   return response.json();
@@ -131,9 +155,10 @@ export const api = {
   },
 
   async updateProfile(data: Partial<ProfileData>): Promise<ProfileData> {
+    const { id, updatedAt, ...payload } = data as any;
     return request<ProfileData>('/profile', {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
   },
 

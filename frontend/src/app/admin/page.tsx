@@ -103,7 +103,8 @@ export default function AdminPage() {
   // Profile save
   const handleSaveProfile = async () => {
     try {
-      const updated = await api.updateProfile(profile);
+      const { id, updatedAt, ...cleanProfile } = profile as any;
+      const updated = await api.updateProfile(cleanProfile);
       setProfile(updated);
       showToast('Perfil atualizado', 'As alterações já estão salvas no banco de dados.', 'success');
     } catch (err: any) {
