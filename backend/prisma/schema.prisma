@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Profile {
+  id         String   @id @default("default-profile")
+  name       String   @default("Denilson Ferreira de Araujo")
+  status     String   @default("Disponível para novos projetos")
+  title      String   @default("Transformando visão em realidade com código e experiência.")
+  intro      String   @default("Desenvolvedor de soluções digitais com experiência em operações, logística, indicadores e aplicações corporativas. Projetos feitos para resolver problemas reais do negócio.")
+  aboutTitle String   @default("Tecnologia com visão de negócio.")
+  aboutSide  String   @default("Uma carreira construída entre operação, análise e desenvolvimento de soluções.")
+  aboutText  String   @default("Minha trajetória combina experiência profissional com desenvolvimento de software, automação, dados e melhoria contínua.")
+  years      String   @default("20+")
+  skills     String   @default("HTML, CSS, JavaScript, React, Node.js, NestJS, PostgreSQL, MySQL, Power BI, Excel, Dashboards, Logística")
+  cv         String   @default("")
+  contact    String   @default("Tem uma ideia? Vamos transformar em projeto.")
+  photo      String   @default("")
+  linkedin   String   @default("")
+  github     String   @default("")
+  instagram  String   @default("")
+  email      String   @default("de.faraujo@hotmail.com")
+  whatsapp   String   @default("https://wa.me/5519999486552")
+  customSocials String @default("[]")
+  updatedAt  DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  description String
+  url         String
+  image       String   @default("")
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

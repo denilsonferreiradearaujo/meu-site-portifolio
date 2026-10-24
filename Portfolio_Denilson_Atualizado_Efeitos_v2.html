@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Denilson Ferreira | Portfólio</title>
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --panel: #fff;
+      --text: #171717;
+      --muted: #666;
+      --line: #ddd;
+      --accent: #16c7b7;
+      --dark: #171718;
+      --side: 72px
+    }
+
+    html[data-theme=dark] {
+      --bg: #101011;
+      --panel: #1b1b1d;
+      --text: #f7f7f5;
+      --muted: #aaa;
+      --line: #353538
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit
+    }
+
+    .side {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--side);
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 7px;
+      transition: .25s
+    }
+
+    .brand {
+      width: 44px;
+      height: 44px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 900
+    }
+
+    .side nav {
+      display: grid;
+      gap: 12px;
+      margin-top: 35px
+    }
+
+    .navbtn {
+      width: 50px;
+      height: 50px;
+      border: 0;
+      border-radius: 15px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer
+    }
+
+    .navbtn:hover,
+    .navbtn.active {
+      background: var(--text);
+      color: var(--bg)
+    }
+
+    .side.dark,
+    .top.dark {
+      background: #171718;
+      color: #f7f7f5;
+      border-color: #343437
+    }
+
+    .side.dark .navbtn {
+      color: #bbb
+    }
+
+    .side.dark .navbtn.active,
+    .side.dark .navbtn:hover {
+      background: #f7f7f5;
+      color: #171718
+    }
+
+    .app {
+      margin-left: var(--side)
+    }
+
+    .screen {
+      display: none
+    }
+
+    .screen.active {
+      display: block
+    }
+
+    .top {
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 clamp(22px, 4vw, 62px);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(15px);
+      transition: .25s
+    }
+
+    .links {
+      display: flex;
+      gap: 25px;
+      font-weight: 750;
+      font-size: 13px
+    }
+
+    .toplogo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 900
+    }
+
+    .top.dark .toplogo {
+      background: #fff;
+      color: #171718
+    }
+
+    .social {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px
+    }
+
+    .social a,
+    .theme {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--panel);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer
+    }
+
+    .top.dark .social a,
+    .top.dark .theme {
+      background: #28282a;
+      color: #fff;
+      border-color: #444
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: clamp(32px, 5vw, 75px);
+      align-items: center;
+      padding: 42px clamp(28px, 5.5vw, 82px) 62px;
+      overflow: hidden;
+      background: radial-gradient(circle at 15% 30%, rgba(109, 93, 252, .17), transparent 34%), radial-gradient(circle at 90% 90%, rgba(22, 199, 183, .13), transparent 35%)
+    }
+
+    .visual {
+      min-height: 470px;
+      display: grid;
+      place-items: center;
+      position: relative
+    }
+
+    .portrait {
+      width: min(100%, 395px);
+      aspect-ratio: .78;
+      border-radius: 45% 45% 22% 22%;
+      background: linear-gradient(145deg, #665ef7, #18c8b8 55%, #ff9d45);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .16)
+    }
+
+    .portrait:before {
+      content: 'DA';
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 150px;
+      font-weight: 950;
+      color: #ffffffdc;
+      letter-spacing: -.12em
+    }
+
+    .portrait img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2
+    }
+
+    .badge {
+      position: absolute;
+      left: clamp(0px, 2vw, 24px);
+      bottom: 20px;
+      z-index: 5;
+      width: 110px;
+      height: 110px;
+      border: 2px solid var(--text);
+      border-radius: 50%;
+      background: var(--panel);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 15px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.18);
+      transform: rotate(-7deg);
+    }
+
+    .copy small,
+    .kicker {
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase
+    }
+
+    .copy h1 {
+      font-size: clamp(42px, 5.3vw, 72px);
+      line-height: .94;
+      letter-spacing: -.055em;
+      margin: 14px 0 20px
+    }
+
+    .copy p {
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 650px
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px
+    }
+
+    .btn {
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: var(--bg);
+      padding: 12px 17px;
+      border-radius: 8px;
+      font-weight: 800;
+      cursor: pointer
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--text)
+    }
+
+    .section {
+      padding: 78px clamp(28px, 5.5vw, 82px)
+    }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 30px
+    }
+
+    .head h2 {
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: .96;
+      letter-spacing: -.05em;
+      margin: 8px 0 0
+    }
+
+    .head p {
+      max-width: 430px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 30px
+    }
+
+    .aboutText {
+      font-size: clamp(17px, 1.7vw, 24px);
+      line-height: 1.5
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .metric b {
+      display: block;
+      font-size: 27px
+    }
+
+    .metric span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px
+    }
+
+    .chip {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 750
+    }
+
+    .projects {
+      background: var(--dark);
+      color: #f7f7f5
+    }
+
+    .projects .head p {
+      color: #bbb
+    }
+
+    .carouselWrap {
+      position: relative;
+      padding: 0 55px
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 18px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none
+    }
+
+    .project {
+      flex: 0 0 min(760px, 76vw);
+      min-height: 350px;
+      display: grid;
+      grid-template-columns: 1fr .92fr;
+      border: 1px solid #4a4a4d;
+      border-radius: 22px;
+      overflow: hidden;
+      scroll-snap-align: center;
+      background: #2a2a2c
+    }
+
+    .media {
+      min-height: 340px;
+      background: linear-gradient(135deg, #665ef7, #18c8b8);
+      position: relative
+    }
+
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #202024
+    }
+
+    .num {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      font-size: 92px;
+      font-weight: 950;
+      color: #ffffffb5
+    }
+
+    .media.has-image .num {
+      display: none
+    }
+
+    .projectInfo {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .projectInfo small {
+      color: var(--accent);
+      font-weight: 900
+    }
+
+    .projectInfo h3 {
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.03;
+      margin: 10px 0 14px
+    }
+
+    .projectInfo p {
+      font-size: 14px;
+      color: #c5c5c5;
+      line-height: 1.65
+    }
+
+    .projectInfo .btn {
+      align-self: flex-start;
+      background: #fff;
+      color: #171718;
+      border-color: #fff
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: #171718;
+      box-shadow: 0 12px 28px #0008;
+      font-size: 36px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .arrow:hover {
+      background: var(--accent);
+      transform: translateY(-50%) scale(1.08)
+    }
+
+    .arrow.prev {
+      left: 3px
+    }
+
+    .arrow.next {
+      right: 3px
+    }
+
+    .contact h2 {
+      font-size: clamp(38px, 5vw, 66px);
+      letter-spacing: -.05em
+    }
+
+    .footer {
+      padding: 20px clamp(28px, 5.5vw, 82px);
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .admin {
+      padding: 42px clamp(22px, 5vw, 65px)
+    }
+
+    .admin h1 {
+      font-size: clamp(38px, 5vw, 62px);
+      margin: 0
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 25px 0
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 15px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 750
+    }
+
+    .tab.active {
+      background: var(--text);
+      color: var(--bg)
+    }
+
+    .panel {
+      display: none
+    }
+
+    .panel.active {
+      display: block
+    }
+
+    .adminCard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 15px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .field {
+      display: grid;
+      gap: 6px
+    }
+
+    .field.full {
+      grid-column: 1/-1
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .field input,
+    .field textarea {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 12px
+    }
+
+    .field textarea {
+      min-height: 100px;
+      resize: vertical
+    }
+
+    .actions {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 18px
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin-top: 18px
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px
+    }
+
+    .tiny {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer
+    }
+
+    .danger {
+      background: #d43c3c;
+      color: #fff;
+      border-color: #d43c3c
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 99;
+      min-width: 290px;
+      max-width: min(420px, calc(100vw - 32px));
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      align-items: center;
+      gap: 11px;
+      background: #fff;
+      color: #202124;
+      border: 1px solid #e4e6ea;
+      padding: 13px 14px;
+      border-radius: 16px;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .22);
+      transform: translateY(150%);
+      opacity: 0;
+      transition: .28s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    .toast.show {
+      transform: none;
+      opacity: 1
+    }
+
+    .toast-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 950
+    }
+
+    .toast-copy b {
+      display: block;
+      font-size: 14px
+    }
+
+    .toast-copy span {
+      display: block;
+      margin-top: 2px;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.35
+    }
+
+    .toast-close {
+      border: 0;
+      background: transparent;
+      color: #777;
+      font-size: 20px;
+      cursor: pointer
+    }
+
+    .toast.success .toast-icon {
+      background: #dcf8ec;
+      color: #087a52
+    }
+
+    .toast.error .toast-icon {
+      background: #ffe3e3;
+      color: #bd2424
+    }
+
+    .toast.info .toast-icon {
+      background: #e5efff;
+      color: #2459b9
+    }
+
+    html[data-theme=dark] .toast {
+      background: #252528;
+      color: #fff;
+      border-color: #3a3a3e
+    }
+
+    html[data-theme=dark] .toast-copy span {
+      color: #bbb
+    }
+
+
+
+    /* Quatro indicadores e conjunto completo de habilidades */
+    .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: stretch }
+    .metric { min-height: 150px; display: flex; flex-direction: column; justify-content: center }
+    .metric b { line-height: 1.08; letter-spacing: -.025em }
+    .metric span { margin-top: 8px; line-height: 1.45 }
+    .chips { gap: 11px; margin-top: 22px }
+    .chip { padding: 11px 17px; font-size: 13px; border-radius: 999px }
+
+    /* ===== EFEITOS VISUAIS PREMIUM ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px) scale(.985);
+      transition: opacity .78s cubic-bezier(.2,.7,.2,1), transform .78s cubic-bezier(.2,.7,.2,1);
+      will-change: opacity, transform;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .reveal-delay-1 { transition-delay: .08s }
+    .reveal-delay-2 { transition-delay: .16s }
+    .reveal-delay-3 { transition-delay: .24s }
+    .visual, .copy { will-change: transform }
+    .portrait {
+      transition: transform .25s ease-out, box-shadow .35s ease;
+    }
+    .portrait:hover {
+      transform: translateY(-5px) rotate(-.6deg) scale(1.012);
+      box-shadow: 0 34px 75px rgba(0,0,0,.22);
+    }
+    .badge {
+      animation: badgeFloat 4.2s ease-in-out infinite;
+      transform-origin: center;
+      transition: box-shadow .3s ease, border-color .3s ease;
+    }
+    .badge:hover {
+      animation-play-state: paused;
+      border-color: var(--accent);
+      box-shadow: 0 18px 42px rgba(0,0,0,.24), 0 0 0 7px color-mix(in srgb,var(--accent) 13%,transparent);
+    }
+    @keyframes badgeFloat {
+      0%,100% { transform: translateY(0) rotate(-7deg) }
+      50% { transform: translateY(-13px) rotate(-2deg) }
+    }
+    .btn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      border-radius: 12px;
+      box-shadow: 0 9px 24px rgba(0,0,0,.12);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.28) 48%, transparent 72%);
+      transform: translateX(-125%);
+      transition: transform .65s ease;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(0,0,0,.2);
+    }
+    .btn:hover::before { transform: translateX(125%) }
+    .btn:active { transform: translateY(-1px) scale(.98) }
+    .btn.ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb,var(--accent) 8%,transparent);
+    }
+    .project {
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+    .project:hover {
+      transform: translateY(-7px);
+      border-color: color-mix(in srgb,var(--accent) 65%,#4a4a4d);
+      box-shadow: 0 26px 65px rgba(0,0,0,.35);
+    }
+    .project .media img { transition: transform .7s cubic-bezier(.2,.7,.2,1) }
+    .project:hover .media img { transform: scale(1.045) }
+    .card, .adminCard, .item, .chip {
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover, .adminCard:hover {
+      border-color: color-mix(in srgb,var(--accent) 48%,var(--line));
+      box-shadow: 0 18px 46px rgba(0,0,0,.1);
+    }
+    .metric:hover, .chip:hover { transform: translateY(-3px) }
+    .field input:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px color-mix(in srgb,var(--accent) 14%,transparent);
+    }
+    .field input[type='file'] {
+      padding: 8px;
+      cursor: pointer;
+      border-style: dashed;
+      background: color-mix(in srgb,var(--accent) 4%,var(--bg));
+    }
+    .field input[type='file']::file-selector-button {
+      border: 0;
+      margin-right: 12px;
+      padding: 10px 15px;
+      border-radius: 9px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .field input[type='file']::file-selector-button:hover {
+      background: var(--accent);
+      color: #07110f;
+    }
+    .navbtn, .social a, .theme, .tab, .tiny, .arrow {
+      transition: transform .22s ease, background .22s ease, color .22s ease, box-shadow .22s ease;
+    }
+    .navbtn:hover, .social a:hover, .theme:hover { transform: translateY(-3px) }
+    .tab:hover, .tiny:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.1) }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important }
+      .reveal { opacity: 1; transform: none }
+    }
+
+    @media(max-width:850px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .visual {
+        min-height: 380px
+      }
+
+      .portrait {
+        width: min(70vw, 340px)
+      }
+
+      .copy {
+        text-align: center
+      }
+
+      .copy p {
+        margin: auto
+      }
+
+      .buttons {
+        justify-content: center
+      }
+
+      .about {
+        grid-template-columns: 1fr
+      }
+
+      .project {
+        grid-template-columns: 1fr;
+        flex-basis: 78vw
+      }
+
+      .head {
+        display: block
+      }
+
+      .head p {
+        margin-top: 15px
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .field.full {
+        grid-column: auto
+      }
+    }
+
+    @media(max-width:600px) {
+      :root {
+        --side: 0px
+      }
+
+      .side {
+        inset: auto 10px 10px;
+        width: auto;
+        height: 62px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        flex-direction: row;
+        justify-content: center;
+        padding: 5px
+      }
+
+      .brand {
+        display: none
+      }
+
+      .side nav {
+        display: flex;
+        margin: 0
+      }
+
+      .navbtn {
+        width: 75px;
+        height: 48px
+      }
+
+      .app {
+        margin: 0;
+        padding-bottom: 74px
+      }
+
+      .top {
+        height: 64px;
+        padding: 8px 15px;
+        grid-template-columns: auto 1fr
+      }
+
+      .links {
+        display: none
+      }
+
+      .toplogo {
+        width: 42px;
+        height: 42px
+      }
+
+      .social a {
+        display: none
+      }
+
+      .hero {
+        padding: 32px 18px 55px
+      }
+
+      .visual {
+        min-height: 315px
+      }
+
+      .badge {
+        width: 88px;
+        height: 88px
+      }
+
+      .section {
+        padding: 58px 18px
+      }
+
+      .metrics {
+        grid-template-columns: 1fr
+      }
+
+      .carouselWrap {
+        padding: 0 34px
+      }
+
+      .project {
+        flex-basis: 82vw
+      }
+
+      .media {
+        min-height: 245px
+      }
+
+      .projectInfo {
+        padding: 22px
+      }
+
+      .arrow {
+        width: 39px;
+        height: 39px;
+        font-size: 29px
+      }
+
+      .arrow.prev {
+        left: -3px
+      }
+
+      .arrow.next {
+        right: -3px
+      }
+
+      .admin {
+        padding: 28px 15px
+      }
+    }
+  
+    @media(max-width:600px) {
+      .metrics { grid-template-columns: 1fr }
+      .metric { min-height: 118px }
+      .chips { gap: 8px }
+      .chip { padding: 9px 13px; font-size: 12px }
+    }
+
+</style>
+</head>
+
+<body>
+  <aside class="side">
+    <div class="brand">DA</div>
+    <nav><button class="navbtn active" data-screen="portfolio" title="Portfólio"
+        aria-label="Portfólio">⌂</button><button class="navbtn" data-screen="config" title="Configurações"
+        aria-label="Configurações">⚙</button></nav>
+  </aside>
+  <main class="app">
+    <section id="portfolio" class="screen active">
+      <header class="top">
+        <nav class="links"><a href="#home">Home</a><a href="#sobre">Sobre</a><a href="#projetos">Projetos</a><a
+            href="#contato">Contato</a></nav>
+        <div class="toplogo">DA</div>
+        <div class="social" id="socialTop"></div>
+      </header>
+      <section class="hero" id="home">
+        <div class="visual reveal">
+          <div class="portrait"><img id="photo" hidden alt="Foto de perfil"></div>
+          <div class="badge">CONHEÇA MEU TRABALHO</div>
+        </div>
+        <div class="copy reveal reveal-delay-1"><small id="status"></small>
+          <h1 id="title"></h1>
+          <p id="intro"></p>
+          <div class="buttons"><a class="btn" href="#projetos">Ver projetos ↗</a><a class="btn ghost" id="cv"
+              target="_blank">Currículo ↗</a></div>
+        </div>
+      </section>
+      <section class="section" id="sobre">
+        <div class="head reveal">
+          <div>
+            <div class="kicker">Sobre mim</div>
+            <h2 id="aboutTitle"></h2>
+          </div>
+          <p id="aboutSide"></p>
+        </div>
+        <div class="about reveal reveal-delay-1">
+          <div class="card aboutText" id="aboutText"></div>
+          <div>
+            <div class="metrics">
+              <div class="card metric reveal visible"><b id="years"></b><span>de experiência profissional</span></div>
+              <div class="card metric reveal visible"><b id="count"></b><span>projetos publicados</span></div>
+              <div class="card metric reveal visible"><b>Full<br>Stack</b><span>desenvolvimento e integração</span></div>
+              <div class="card metric reveal visible"><b>Dados</b><span>indicadores e dashboards</span></div>
+            </div>
+            <div class="chips" id="skills"></div>
+          </div>
+        </div>
+      </section>
+      <section class="section projects" id="projetos">
+        <div class="head reveal">
+          <div>
+            <div class="kicker">Projetos selecionados</div>
+            <h2>Imaginação supera conhecimento.</h2>
+          </div>
+          <p>Aplicações criadas para desafios reais, automação de rotinas e decisões melhores.</p>
+        </div>
+        <div class="carouselWrap reveal reveal-delay-1"><button class="arrow prev" id="prev">‹</button>
+          <div class="carousel" id="carousel"></div><button class="arrow next" id="next">›</button>
+        </div>
+      </section>
+      <section class="section contact reveal" id="contato">
+        <div class="kicker">Vamos conversar</div>
+        <h2 id="contactTitle"></h2>
+        <div class="buttons" id="contactLinks"></div>
+      </section>
+      <footer class="footer" id="footer"></footer>
+    </section>
+    <section id="config" class="screen">
+      <div class="admin">
+        <h1>Configurações</h1>
+        <p>As alterações ficam salvas neste navegador.</p>
+        <div class="tabs"><button class="tab active" data-panel="profile">Perfil</button><button class="tab"
+            data-panel="social">Redes</button><button class="tab" data-panel="projects">Projetos</button></div>
+        <div class="panel active" id="p-profile">
+          <div class="adminCard">
+            <div class="grid">
+              <div class="field"><label>Nome</label><input id="fName"></div>
+              <div class="field"><label>Etiqueta</label><input id="fStatus"></div>
+              <div class="field full"><label>Título principal</label><textarea id="fTitle"></textarea></div>
+              <div class="field full"><label>Resumo inicial</label><textarea id="fIntro"></textarea></div>
+              <div class="field"><label>Título Sobre</label><input id="fAboutTitle"></div>
+              <div class="field"><label>Anos de experiência</label><input id="fYears"></div>
+              <div class="field full"><label>Texto Sobre</label><textarea id="fAboutText"></textarea></div>
+              <div class="field full"><label>Texto lateral Sobre</label><textarea id="fAboutSide"></textarea></div>
+              <div class="field full"><label>Tecnologias separadas por vírgula</label><input id="fSkills"></div>
+              <div class="field"><label>URL do currículo</label><input id="fCv"></div>
+              <div class="field"><label>Chamada de contato</label><input id="fContact"></div>
+              <div class="field full"><label>Foto</label><input type="file" id="fPhoto" accept="image/*"></div>
+            </div>
+            <div class="actions"><button class="btn" id="saveProfile">Salvar perfil</button><button class="btn ghost"
+                id="removePhoto">Remover foto</button></div>
+          </div>
+        </div>
+        <div class="panel" id="p-social">
+          <div class="adminCard">
+            <div class="grid">
+              <div class="field"><label>LinkedIn</label><input id="fLinkedin"></div>
+              <div class="field"><label>GitHub</label><input id="fGithub"></div>
+              <div class="field"><label>Instagram</label><input id="fInstagram"></div>
+              <div class="field"><label>E-mail</label><input id="fEmail"></div>
+            </div>
+            <div class="actions"><button class="btn" id="saveSocial">Salvar redes</button></div>
+          </div>
+        </div>
+        <div class="panel" id="p-projects">
+          <div class="adminCard"><input type="hidden" id="pid">
+            <div class="grid">
+              <div class="field"><label>Título</label><input id="ptitle"></div>
+              <div class="field"><label>Categoria</label><input id="pcat"></div>
+              <div class="field full"><label>Descrição</label><textarea id="pdesc"></textarea></div>
+              <div class="field"><label>Link do projeto</label><input id="purl"></div>
+              <div class="field"><label>URL da imagem</label><input id="pimg"></div>
+              <div class="field full"><label>Ou envie uma imagem</label><input type="file" id="pfile" accept="image/*">
+              </div>
+            </div>
+            <div class="actions"><button class="btn" id="saveProject">Salvar projeto</button><button class="btn ghost"
+                id="cancel">Cancelar</button></div>
+            <div class="list" id="projectList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="toast-icon" id="toastIcon">✓</div>
+    <div class="toast-copy"><b id="toastTitle">Tudo certo</b><span id="toastMessage"></span></div><button
+      class="toast-close" id="toastClose" aria-label="Fechar">×</button>
+  </div>
+  <script>
+    (() => { const KEY = 'denilson_portfolio_compacto'; const dflt = { theme: 'light', profile: { name: 'Denilson Ferreira de Araujo', status: 'Disponível para novos projetos', title: 'Transformando visão em realidade com código e experiência.', intro: 'Desenvolvedor de soluções digitais com experiência em operações, logística, indicadores e aplicações corporativas. Projetos feitos para resolver problemas reais do negócio.', aboutTitle: 'Tecnologia com visão de negócio.', aboutSide: 'Uma carreira construída entre operação, análise e desenvolvimento de soluções.', aboutText: 'Minha trajetória combina experiência profissional com desenvolvimento de software, automação, dados e melhoria contínua.', years: '20+', skills: 'HTML, CSS, JavaScript, React, Node.js, NestJS, PostgreSQL, MySQL, Power BI, Excel, Dashboards, Logística', cv: '', contact: 'Tem uma ideia? Vamos transformar em projeto.', photo: '' }, social: { linkedin: '', github: '', instagram: '', email: 'de.faraujo@hotmail.com' }, projects: [{ id: '1', title: 'Agendador de Tarefas', category: 'Kanban e Gantt', description: 'Organização de atividades com visualizações em Kanban e Gantt.', url: 'https://personaltasks.vps6663.panel.icontainer.run/', image: '' }, { id: '2', title: 'Monitoramento de Estoque', category: 'Dashboard corporativo', description: 'Painel de cadastro e monitoramento de estoque para centros de distribuição.', url: 'https://dashestoque.vps6663.panel.icontainer.run/', image: '' }, { id: '3', title: 'Gerenciamento de Riscos', category: 'Governança e controle', description: 'Aplicação para registrar riscos e acompanhar planos de ação.', url: 'https://gestorcrises.vps6663.panel.icontainer.run/', image: '' }] }; const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)], esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); let data; try { data = { ...dflt, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; data.profile = { ...dflt.profile, ...data.profile }; data.social = { ...dflt.social, ...data.social }; if (!Array.isArray(data.projects)) data.projects = dflt.projects } catch { data = structuredClone(dflt) } let pending = ''; function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); return true } catch (e) { toast('Não foi possível salvar', 'O armazenamento do navegador pode estar cheio. Use uma imagem menor.', 'error'); return false } } function toast(title, message = '', type = 'success') { const t = $('#toast'); t.className = 'toast ' + type; $('#toastTitle').textContent = title; $('#toastMessage').textContent = message; $('#toastIcon').textContent = type === 'error' ? '!' : type === 'info' ? 'i' : '✓'; t.classList.add('show'); clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove('show'), 3500) } $('#toastClose').onclick = () => $('#toast').classList.remove('show'); function render() { document.documentElement.dataset.theme = data.theme; const p = data.profile, s = data.social; $('#status').textContent = p.status; $('#title').textContent = p.title; $('#intro').textContent = p.intro; $('#aboutTitle').textContent = p.aboutTitle; $('#aboutSide').textContent = p.aboutSide; $('#aboutText').textContent = p.aboutText; $('#years').textContent = p.years; $('#count').textContent = data.projects.length; $('#contactTitle').textContent = p.contact; $('#footer').textContent = '© ' + new Date().getFullYear() + ' ' + p.name; $('#skills').innerHTML = p.skills.split(',').map(x => `<span class="chip">${esc(x.trim())}</span>`).join(''); const ph = $('#photo'); ph.hidden = !p.photo; if (p.photo) ph.src = p.photo; $('#cv').style.display = p.cv ? 'inline-block' : 'none'; $('#cv').href = p.cv || '#'; let nets = [['in', s.linkedin], ['GH', s.github], ['◎', s.instagram], ['@', s.email ? `mailto:${s.email}` : '']].filter(x => x[1]); $('#socialTop').innerHTML = nets.map(x => `<a href="${esc(x[1])}" target="_blank">${x[0]}</a>`).join('') + `<button class="theme" id="theme">${data.theme === 'dark' ? '☀' : '◐'}</button>`; $('#theme').onclick = () => { data.theme = data.theme === 'dark' ? 'light' : 'dark'; save(); render() }; $('#contactLinks').innerHTML = nets.map(x => `<a class="btn ghost" href="${esc(x[1])}" target="_blank">${x[0]} ↗</a>`).join(''); $('#carousel').innerHTML = data.projects.map((x, i) => `<article class="project reveal visible"><div class="media ${x.image ? 'has-image' : ''}">${x.image ? `<img src="${esc(x.image)}" alt="Capa do projeto ${esc(x.title)}" onerror="this.parentElement.classList.remove('has-image');this.remove()">` : ''}<div class="num">${String(i + 1).padStart(2, '0')}</div></div><div class="projectInfo"><small>${esc(x.category)}</small><h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><a class="btn" href="${esc(x.url)}" target="_blank">Abrir projeto ↗</a></div></article>`).join(''); $('#projectList').innerHTML = data.projects.map(x => `<div class="item"><div><b>${esc(x.title)}</b><br><small>${esc(x.category)}</small></div><div><button class="tiny" data-edit="${x.id}">Editar</button> <button class="tiny danger" data-del="${x.id}">Excluir</button></div></div>`).join(''); $$('[data-edit]').forEach(b => b.onclick = () => edit(b.dataset.edit)); $$('[data-del]').forEach(b => b.onclick = () => { if (confirm('Excluir projeto?')) { data.projects = data.projects.filter(x => x.id !== b.dataset.del); if (save()) { render(); toast('Projeto excluído', 'O projeto foi removido do portfólio.', 'success') } } }); fill() } function fill() { let p = data.profile, s = data.social; ({ fName: p.name, fStatus: p.status, fTitle: p.title, fIntro: p.intro, fAboutTitle: p.aboutTitle, fYears: p.years, fAboutText: p.aboutText, fAboutSide: p.aboutSide, fSkills: p.skills, fCv: p.cv, fContact: p.contact, fLinkedin: s.linkedin, fGithub: s.github, fInstagram: s.instagram, fEmail: s.email }); Object.entries({ fName: p.name, fStatus: p.status, fTitle: p.title, fIntro: p.intro, fAboutTitle: p.aboutTitle, fYears: p.years, fAboutText: p.aboutText, fAboutSide: p.aboutSide, fSkills: p.skills, fCv: p.cv, fContact: p.contact, fLinkedin: s.linkedin, fGithub: s.github, fInstagram: s.instagram, fEmail: s.email }).forEach(([k, v]) => { if (document.activeElement !== $('#' + k)) $('#' + k).value = v || '' }) } const v = i => $('#' + i).value.trim(); $('#saveProfile').onclick = () => { Object.assign(data.profile, { name: v('fName'), status: v('fStatus'), title: v('fTitle'), intro: v('fIntro'), aboutTitle: v('fAboutTitle'), years: v('fYears'), aboutText: v('fAboutText'), aboutSide: v('fAboutSide'), skills: v('fSkills'), cv: v('fCv'), contact: v('fContact') }); if (save()) { render(); toast('Perfil atualizado', 'As alterações já estão visíveis no portfólio.', 'success') } }; $('#saveSocial').onclick = () => { Object.assign(data.social, { linkedin: v('fLinkedin'), github: v('fGithub'), instagram: v('fInstagram'), email: v('fEmail') }); if (save()) { render(); toast('Redes atualizadas', 'Os novos links foram aplicados com sucesso.', 'success') } }; function file(e, cb) { const f = e.target.files[0]; if (!f) return; if (!f.type.startsWith('image/')) { toast('Arquivo inválido', 'Selecione uma imagem PNG, JPG ou WEBP.', 'error'); return } const r = new FileReader; r.onerror = () => toast('Falha ao ler a imagem', 'Tente selecionar o arquivo novamente.', 'error'); r.onload = () => { const im = new Image; im.onerror = () => toast('Imagem inválida', 'O arquivo selecionado não pôde ser processado.', 'error'); im.onload = () => { const max = 1400, scale = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.round(im.width * scale); c.height = Math.round(im.height * scale); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', .84)) }; im.src = r.result }; r.readAsDataURL(f) } $('#fPhoto').onchange = e => file(e, x => { data.profile.photo = x; save(); render() }); $('#removePhoto').onclick = () => { data.profile.photo = ''; save(); render() }; $('#pfile').onchange = e => file(e, x => { pending = x; toast('Imagem pronta', 'Clique em Salvar projeto para aplicar a nova capa.', 'info') }); $('#saveProject').onclick = () => { const id = v('pid'), editing = Boolean(id), o = { id: id || Date.now().toString(), title: v('ptitle'), category: v('pcat'), description: v('pdesc'), url: v('purl'), image: pending || v('pimg') }; if (!o.title) return toast('Título obrigatório', 'Informe o nome do projeto antes de salvar.', 'error'); if (!/^https?:\/\//i.test(o.url)) return toast('Link inválido', 'Use um endereço iniciado por http:// ou https://.', 'error'); if (editing) { const i = data.projects.findIndex(x => x.id === id); if (i < 0) return toast('Projeto não encontrado', 'Atualize a página e tente novamente.', 'error'); if (!o.image) o.image = data.projects[i].image; data.projects[i] = o } else data.projects.push(o); if (save()) { clear(); render(); toast(editing ? 'Projeto atualizado' : 'Projeto adicionado', editing ? 'A edição foi salva e já aparece no portfólio.' : 'O novo projeto já está disponível no carrossel.', 'success') } }; function edit(id) { let x = data.projects.find(y => y.id === id);['pid', 'ptitle', 'pcat', 'pdesc', 'purl', 'pimg'].forEach((k, i) => $('#' + k).value = [x.id, x.title, x.category, x.description, x.url, /^data:/.test(x.image) ? '' : x.image][i]); pending = /^data:/.test(x.image) ? x.image : ''; toast('Modo de edição', 'Altere os campos e clique em Salvar projeto.', 'info'); scrollTo({ top: 0, behavior: 'smooth' }) } function clear() { ['pid', 'ptitle', 'pcat', 'pdesc', 'purl', 'pimg'].forEach(x => $('#' + x).value = ''); pending = '' } $('#cancel').onclick = clear; $$('.navbtn').forEach(b => b.onclick = () => { $$('.navbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); $$('.screen').forEach(x => x.classList.remove('active')); $('#' + b.dataset.screen).classList.add('active'); scrollTo(0, 0) }); $$('.tab').forEach(b => b.onclick = () => { $$('.tab').forEach(x => x.classList.remove('active')); b.classList.add('active'); $$('.panel').forEach(x => x.classList.remove('active')); $('#p-' + b.dataset.panel).classList.add('active') }); $('#prev').onclick = () => $('#carousel').scrollBy({ left: -800, behavior: 'smooth' }); $('#next').onclick = () => $('#carousel').scrollBy({ left: 800, behavior: 'smooth' }); function chrome() { let r = $('#projetos').getBoundingClientRect(), dark = r.top <= 36 && r.bottom > 36; $('.top').classList.toggle('dark', dark); $('.side').classList.toggle('dark', dark) } addEventListener('scroll', chrome, { passive: true }); addEventListener('resize', chrome);
+    function initReveal(){
+      const elements=$$('.reveal');
+      if(!('IntersectionObserver' in window)){elements.forEach(el=>el.classList.add('visible'));return}
+      const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+      }),{threshold:.1,rootMargin:'0px 0px -45px 0px'});
+      elements.forEach(el=>observer.observe(el));
+    }
+    function premiumParallax(){
+      if(innerWidth<851||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      const hero=$('#home');if(!hero)return;
+      const r=hero.getBoundingClientRect();
+      if(r.bottom<0||r.top>innerHeight)return;
+      const progress=Math.max(-1,Math.min(1,-r.top/Math.max(1,r.height)));
+      const visual=$('.visual'),copy=$('.copy');
+      if(visual)visual.style.transform=`translate3d(0,${progress*30}px,0)`;
+      if(copy)copy.style.transform=`translate3d(0,${progress*-18}px,0)`;
+    }
+    addEventListener('scroll',premiumParallax,{passive:true});
+    addEventListener('resize',premiumParallax);
+    render(); chrome(); initReveal(); premiumParallax() })();
+  </script>
+</body>
+
+</html>
