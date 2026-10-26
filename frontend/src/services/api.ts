@@ -74,6 +74,23 @@ export function getFullAssetUrl(path: string | undefined): string {
   return path;
 }
 
+export function formatExternalUrl(url: string | undefined | null): string {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+  if (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('mailto:') ||
+    trimmed.startsWith('tel:') ||
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('#')
+  ) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
 export function getStoredToken(): string | null {
   if (typeof window === 'undefined') return null;
   return localStorage.getItem('denilson_portfolio_token');

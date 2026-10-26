@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { ProjectData } from '@/types';
-import { getFullAssetUrl } from '@/services/api';
+import { getFullAssetUrl, formatExternalUrl } from '@/services/api';
 
 interface ProjectsSectionProps {
   projects: ProjectData[];
@@ -74,7 +74,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                   <p>{proj.description}</p>
                   <a
                     className="btn"
-                    href={proj.url}
+                    href={formatExternalUrl(proj.url)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

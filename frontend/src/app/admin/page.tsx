@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { api, defaultProfile, defaultProjects, getFullAssetUrl, getStoredToken, setStoredToken } from '@/services/api';
+import { api, defaultProfile, defaultProjects, getFullAssetUrl, formatExternalUrl, getStoredToken, setStoredToken } from '@/services/api';
 import { CustomSocialLink, ProfileData, ProjectData, ToastState } from '@/types';
 import { Toast } from '@/components/common/Toast';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -135,11 +135,19 @@ export default function AdminPage() {
 
   const handleSaveSocial = async () => {
     try {
-      const customJson = JSON.stringify(customSocialList.filter((x) => x.url.trim()));
+      const formattedCustom = customSocialList
+        .filter((x) => x.url.trim())
+        .map((x) => ({ ...x, url: formatExternalUrl(x.url) }));
+      const customJson = JSON.stringify(formattedCustom);
+
+      const formattedLinkedin = formatExternalUrl(profile.linkedin);
+      const formattedGithub = formatExternalUrl(profile.github);
+      const formattedInstagram = formatExternalUrl(profile.instagram);
+
       const updated = await api.updateProfile({
-        linkedin: profile.linkedin,
-        github: profile.github,
-        instagram: profile.instagram,
+        linkedin: formattedLinkedin,
+        github: formattedGithub,
+        instagram: formattedInstagram,
         email: profile.email,
         whatsapp: profile.whatsapp,
         customSocials: customJson,
@@ -222,8 +230,9 @@ export default function AdminPage() {
       showToast('Título obrigatório', 'Informe o nome do projeto antes de salvar.', 'error');
       return;
     }
-    if (!projectUrl.trim() || !/^https?:\/\//i.test(projectUrl.trim())) {
-      showToast('Link inválido', 'Use um endereço iniciado por http:// ou https://.', 'error');
+    const finalUrl = formatExternalUrl(projectUrl);
+    if (!finalUrl) {
+      showToast('Link obrigatório', 'Informe o link do projeto antes de salvar.', 'error');
       return;
     }
 
@@ -242,7 +251,7 @@ export default function AdminPage() {
           title: projectTitle,
           category: projectCategory,
           description: projectDescription,
-          url: projectUrl,
+          url: finalUrl,
           image: finalImageUrl,
         });
         showToast('Projeto atualizado', 'As alterações foram salvas com sucesso.', 'success');
@@ -251,7 +260,7 @@ export default function AdminPage() {
           title: projectTitle,
           category: projectCategory,
           description: projectDescription,
-          url: projectUrl,
+          url: finalUrl,
           image: finalImageUrl,
         });
         showToast('Projeto criado', 'Novo projeto adicionado ao portfólio.', 'success');

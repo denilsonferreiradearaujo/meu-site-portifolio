@@ -3,6 +3,7 @@
 import React from 'react';
 import { SocialIcon } from '../common/SocialIcon';
 import { CustomSocialLink } from '@/types';
+import { formatExternalUrl } from '@/services/api';
 
 interface ContactSectionProps {
   contactTitle: string;
@@ -28,18 +29,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     networks.push({ label: 'WhatsApp', url: waUrl, key: 'whatsapp' });
   }
   if (social.linkedin) {
-    networks.push({ label: 'LinkedIn', url: social.linkedin, key: 'linkedin' });
+    networks.push({ label: 'LinkedIn', url: formatExternalUrl(social.linkedin), key: 'linkedin' });
   }
   if (social.github) {
-    networks.push({ label: 'GitHub', url: social.github, key: 'github' });
+    networks.push({ label: 'GitHub', url: formatExternalUrl(social.github), key: 'github' });
   }
   if (social.instagram) {
-    networks.push({ label: 'Instagram', url: social.instagram, key: 'instagram' });
+    networks.push({ label: 'Instagram', url: formatExternalUrl(social.instagram), key: 'instagram' });
   }
   if (social.email) {
     networks.push({
       label: social.email,
-      url: social.email.startsWith('mailto:') ? social.email : `mailto:${social.email}`,
+      url: social.email.startsWith('mailto:') ? social.email : `mailto:${social.email.trim()}`,
       key: 'email',
     });
   }
@@ -52,7 +53,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           if (item.url) {
             networks.push({
               label: item.name || 'Link',
-              url: item.url,
+              url: formatExternalUrl(item.url),
               key: item.icon || item.name || item.url,
             });
           }
