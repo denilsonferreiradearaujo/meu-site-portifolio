@@ -66,7 +66,7 @@ async function main() {
         'HTML, CSS, JavaScript, React, Node.js, NestJS, PostgreSQL, MySQL, Power BI, Excel, Dashboards, Logística',
       cv: '/uploads/CV_Denilson_Ferreira_de_Araujo_Desenvolvedor_2026_ (1).pdf',
       contact: 'Tem uma ideia? Vamos transformar em projeto.',
-      photo: '/FotoPerfil.png',
+      photo: '/FotoPerfil.webp',
       linkedin: '',
       github: '',
       instagram: '',
@@ -85,7 +85,7 @@ async function main() {
         category: 'Kanban e Gantt',
         description: 'Organização de atividades com visualizações em Kanban e Gantt.',
         url: 'https://personaltasks.vps6663.panel.icontainer.run/',
-        image: '/uploads/Designer.png',
+        image: '/uploads/Designer.webp',
         orderIndex: 1,
       },
       {
@@ -101,7 +101,7 @@ async function main() {
         category: 'Governança e controle',
         description: 'Aplicação para registrar riscos e acompanhar planos de ação.',
         url: 'https://gestorcrises.vps6663.panel.icontainer.run/',
-        image: '/uploads/Gestor risco.PNG',
+        image: '/uploads/Gestor risco.webp',
         orderIndex: 3,
       },
     ];

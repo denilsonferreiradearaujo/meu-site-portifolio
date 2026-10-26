@@ -56,6 +56,8 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                     <img
                       src={imageUrl}
                       alt={`Capa do projeto ${proj.title}`}
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => {
                         const target = e.currentTarget as HTMLImageElement;
                         target.parentElement?.classList.remove('has-image');

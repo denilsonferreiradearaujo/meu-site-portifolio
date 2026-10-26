@@ -21,7 +21,7 @@ export const defaultProfile: ProfileData = {
     'HTML, CSS, JavaScript, React, Node.js, NestJS, PostgreSQL, MySQL, Power BI, Excel, Dashboards, Logística',
   cv: '/CV_Denilson_Ferreira_de_Araujo_Desenvolvedor_2026_ (1).pdf',
   contact: 'Tem uma ideia? Vamos transformar em projeto.',
-  photo: '/FotoPerfil.png',
+  photo: '/FotoPerfil.webp',
   linkedin: '',
   github: '',
   instagram: '',
@@ -38,7 +38,7 @@ export const defaultProjects: ProjectData[] = [
     description:
       'Organização de atividades com visualizações em Kanban e Gantt.',
     url: 'https://personaltasks.vps6663.panel.icontainer.run/',
-    image: '/Designer.png',
+    image: '/Designer.webp',
     orderIndex: 1,
   },
   {
@@ -58,7 +58,7 @@ export const defaultProjects: ProjectData[] = [
     description:
       'Aplicação para registrar riscos e acompanhar planos de ação.',
     url: 'https://gestorcrises.vps6663.panel.icontainer.run/',
-    image: '/Gestor risco.PNG',
+    image: '/Gestor risco.webp',
     orderIndex: 3,
   },
 ];

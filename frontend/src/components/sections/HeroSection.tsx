@@ -68,7 +68,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <img
               src={fullPhotoUrl}
               alt="Foto de perfil de Denilson Ferreira"
-              style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
+              loading="eager"
+              decoding="async"
+              {...({ fetchpriority: 'high' } as any)}
+              style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
               onLoad={() => setImgLoaded(true)}
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).style.display = 'none';

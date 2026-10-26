@@ -7,10 +7,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { memoryStorage } from 'multer';
+import { extname, join } from 'path';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import sharp from 'sharp';
 
 @Controller('upload')
 export class UploadController {
@@ -18,20 +19,7 @@ export class UploadController {
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: diskStorage({
-        destination: (req, file, cb) => {
-          const uploadPath = './uploads';
-          if (!existsSync(uploadPath)) {
-            mkdirSync(uploadPath, { recursive: true });
-          }
-          cb(null, uploadPath);
-        },
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = extname(file.originalname);
-          cb(null, `file-${uniqueSuffix}${ext}`);
-        },
-      }),
+      storage: memoryStorage(),
       fileFilter: (req, file, cb) => {
         const mime = (file.mimetype || '').toLowerCase();
         const ext = extname(file.originalname).toLowerCase();
@@ -49,19 +37,62 @@ export class UploadController {
         cb(null, true);
       },
       limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB
+        fileSize: 15 * 1024 * 1024, // 15MB
       },
     }),
   )
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException('Nenhum arquivo enviado.');
     }
-    return {
-      filename: file.filename,
-      originalName: file.originalname,
-      url: `/uploads/${file.filename}`,
-      size: file.size,
-    };
+
+    const uploadDir = './uploads';
+    if (!existsSync(uploadDir)) {
+      mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = extname(file.originalname).toLowerCase();
+    const isPdf = file.mimetype === 'application/pdf' || ext === '.pdf';
+
+    if (isPdf) {
+      const filename = `file-${uniqueSuffix}.pdf`;
+      const targetPath = join(uploadDir, filename);
+      writeFileSync(targetPath, file.buffer);
+      return {
+        filename,
+        originalName: file.originalname,
+        url: `/uploads/${filename}`,
+        size: file.size,
+      };
+    }
+
+    // Se for imagem, converter automaticamente para WebP otimizado
+    const filename = `file-${uniqueSuffix}.webp`;
+    const targetPath = join(uploadDir, filename);
+
+    try {
+      const info = await sharp(file.buffer)
+        .webp({ quality: 82, effort: 4 })
+        .toFile(targetPath);
+
+      return {
+        filename,
+        originalName: file.originalname,
+        url: `/uploads/${filename}`,
+        size: info.size,
+      };
+    } catch (err) {
+      // Fallback de segurança se sharp não puder processar
+      const fallbackFilename = `file-${uniqueSuffix}${ext}`;
+      const fallbackPath = join(uploadDir, fallbackFilename);
+      writeFileSync(fallbackPath, file.buffer);
+      return {
+        filename: fallbackFilename,
+        originalName: file.originalname,
+        url: `/uploads/${fallbackFilename}`,
+        size: file.size,
+      };
+    }
   }
 }
