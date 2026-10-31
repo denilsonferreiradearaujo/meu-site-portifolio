@@ -109,8 +109,8 @@ JWT_SECRET="COLE_AQUI_A_CHAVE_GERADA_PELO_OPENSSL"
 ADMIN_EMAIL=seu-email@dominio.com
 ADMIN_PASSWORD=SuaSenhaForteAqui@2026
 
-# Domínio do Frontend permitido no CORS (ajuste se usar domínio próprio):
-CORS_ORIGIN=https://portifolio.vps6663.panel.icontainer.run
+# Domínios permitidos no CORS (separe por vírgula se usar mais de um):
+CORS_ORIGIN=https://portfolio.devesec.com,https://portifolio.vps6663.panel.icontainer.run
 EOF
 ```
 
@@ -123,7 +123,7 @@ EOF
 > JWT_SECRET="$(openssl rand -base64 32)"
 > ADMIN_EMAIL="seu-email@dominio.com"
 > ADMIN_PASSWORD="SuaSenhaForteAqui@2026"
-> CORS_ORIGIN=https://portifolio.vps6663.panel.icontainer.run
+> CORS_ORIGIN=https://portfolio.devesec.com,https://portifolio.vps6663.panel.icontainer.run
 > EOF
 > ```
 
