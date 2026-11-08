@@ -37,6 +37,12 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // Disable X-Powered-By header for security hardening
+  const httpAdapter = app.getHttpAdapter();
+  if (httpAdapter && typeof (httpAdapter as any).getInstance === 'function') {
+    (httpAdapter.getInstance() as any)?.disable?.('x-powered-by');
+  }
+
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(
